@@ -43,7 +43,8 @@ var (
 	DefaultLastConsonantExceptionsFile []byte
 
 	//go:embed data/average_stem_size_exceptions.txt
-	// DefaultAverageStemSizeExceptionsFile The path of the file that contains the default set of average stem size exceptions.
+	// DefaultAverageStemSizeExceptionsFile The path of the file that contains
+	// the default set of average stem size exceptions.
 	DefaultAverageStemSizeExceptionsFile []byte
 
 	// LastConsonantRules Last consonant rules

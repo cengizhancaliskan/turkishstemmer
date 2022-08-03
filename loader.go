@@ -22,10 +22,15 @@ func LoadWordsFromSliceBytes(data []byte) []string {
 // LoadWords Reads file line by line and returns string Slice
 func LoadWords(path string) []string {
 	file, err := os.Open(path)
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			log.Panicf(fmt.Sprintf("failed to close file %s.", path))
+		}
+	}(file)
 
 	if err != nil {
-		log.Fatalf(fmt.Sprintf("failed to open file %s", path))
+		log.Panicf(fmt.Sprintf("failed to open file %s.", path))
 	}
 
 	var words []string

@@ -1,13 +1,11 @@
 package turkishstemmer
 
 import (
-	"os"
-	"path"
-	"path/filepath"
 	"reflect"
 	"strings"
 )
 
+// Contains Returns whether e is within s.
 func Contains[T comparable](s []T, e T) bool {
 	for _, v := range s {
 		if v == e {
@@ -17,6 +15,7 @@ func Contains[T comparable](s []T, e T) bool {
 	return false
 }
 
+// ReplaceStringAtIndex Find exact index number in text then replaces with r and returns new text.
 func ReplaceStringAtIndex(text string, r rune, i int) string {
 	newText := []rune(text)
 	newText[i] = r
@@ -99,24 +98,11 @@ func HasVowelHarmony(word string) bool {
 	return VowelHarmony(vowel, candidate)
 }
 
+// GetType Returns type of interface.
 func GetType(i interface{}) string {
 	if t := reflect.TypeOf(i); t.Kind() == reflect.Ptr {
 		return "*" + t.Elem().Name()
 	} else {
 		return t.Name()
 	}
-}
-
-// GetRootPath Returns root path of the executable package
-func GetRootPath() string {
-	return path.Dir(GetExecutableDir())
-}
-
-// GetExecutableDir Returns the directory where the executable package is located
-func GetExecutableDir() string {
-	pathAbs, err := filepath.Abs(os.Args[0])
-	if err != nil {
-		return ""
-	}
-	return filepath.Dir(pathAbs)
 }

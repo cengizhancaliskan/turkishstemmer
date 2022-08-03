@@ -7,12 +7,12 @@ type NominalVerbState struct {
 var (
 	NominalVerbStateA = NewNominalVerbState(true, false, NominalVerbSuffixValues)
 	NominalVerbStateB = NewNominalVerbState(false, true, []Suffix{NominalVerbSuffix14})
-	NominalVerbStateC = NewNominalVerbState(false, true, []Suffix{NominalVerbSuffix10, NominalVerbSuffix12, NominalVerbSuffix13, NominalVerbSuffix14})
+	NominalVerbStateC = NewNominalVerbState(false, true, []Suffix{NominalVerbSuffix10, NominalVerbSuffix12, NominalVerbSuffix13, NominalVerbSuffix14}) //nolint:lll
 	NominalVerbStateD = NewNominalVerbState(false, false, []Suffix{NominalVerbSuffix12, NominalVerbSuffix13})
-	NominalVerbStateE = NewNominalVerbState(false, true, []Suffix{NominalVerbSuffix1, NominalVerbSuffix2, NominalVerbSuffix3, NominalVerbSuffix4, NominalVerbSuffix5, NominalVerbSuffix14})
+	NominalVerbStateE = NewNominalVerbState(false, true, []Suffix{NominalVerbSuffix1, NominalVerbSuffix2, NominalVerbSuffix3, NominalVerbSuffix4, NominalVerbSuffix5, NominalVerbSuffix14}) //nolint:lll
 	NominalVerbStateF = NewNominalVerbState(false, true, nil)
 	NominalVerbStateG = NewNominalVerbState(false, false, []Suffix{NominalVerbSuffix14})
-	NominalVerbStateH = NewNominalVerbState(false, false, []Suffix{NominalVerbSuffix1, NominalVerbSuffix2, NominalVerbSuffix3, NominalVerbSuffix4, NominalVerbSuffix5, NominalVerbSuffix14})
+	NominalVerbStateH = NewNominalVerbState(false, false, []Suffix{NominalVerbSuffix1, NominalVerbSuffix2, NominalVerbSuffix3, NominalVerbSuffix4, NominalVerbSuffix5, NominalVerbSuffix14}) //nolint:lll
 
 	NominalVerbTFValues = map[string]NominalVerbState{
 		NominalVerbSuffix1.Name:  NominalVerbStateB,

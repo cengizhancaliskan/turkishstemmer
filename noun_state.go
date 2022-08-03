@@ -9,13 +9,13 @@ var (
 	NounStateB = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5})
 	NounStateC = NewNounState(false, false, []Suffix{NounSuffix6, NounSuffix7})
 	NounStateD = NewNounState(false, false, []Suffix{NounSuffix10, NounSuffix13, NounSuffix14})
-	NounStateE = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix7, NounSuffix18})
+	NounStateE = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix7, NounSuffix18}) //nolint:lll
 	NounStateF = NewNounState(false, false, []Suffix{NounSuffix6, NounSuffix7, NounSuffix18})
-	NounStateG = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix18})
+	NounStateG = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix18}) //nolint:lll
 	NounStateH = NewNounState(false, true, []Suffix{NounSuffix1})
 	NounStateK = NewNounState(false, true, nil)
 	NounStateL = NewNounState(false, true, []Suffix{NounSuffix18})
-	NounStateM = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix6, NounSuffix7})
+	NounStateM = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix6, NounSuffix7}) //nolint:lll
 
 	// TTValues InitialState = true, FinalState = true
 	TTValues = map[string]NounState{

@@ -54,8 +54,8 @@ var (
 
 	// The order of this slice definition determines the priority of the suffix.
 	DerivationalSuffixValues = []Suffix{DerivationalSuffix1}
-	NominalVerbSuffixValues  = []Suffix{NominalVerbSuffix11, NominalVerbSuffix4, NominalVerbSuffix14, NominalVerbSuffix15, NominalVerbSuffix2, NominalVerbSuffix5, NominalVerbSuffix9, NominalVerbSuffix10, NominalVerbSuffix3, NominalVerbSuffix1, NominalVerbSuffix12, NominalVerbSuffix13, NominalVerbSuffix6, NominalVerbSuffix7, NominalVerbSuffix8}
-	NounSuffixValues         = []Suffix{NounSuffix16, NounSuffix7, NounSuffix3, NounSuffix5, NounSuffix1, NounSuffix14, NounSuffix15, NounSuffix17, NounSuffix10, NounSuffix19, NounSuffix4, NounSuffix9, NounSuffix12, NounSuffix13, NounSuffix18, NounSuffix2, NounSuffix6, NounSuffix8, NounSuffix11}
+	NominalVerbSuffixValues  = []Suffix{NominalVerbSuffix11, NominalVerbSuffix4, NominalVerbSuffix14, NominalVerbSuffix15, NominalVerbSuffix2, NominalVerbSuffix5, NominalVerbSuffix9, NominalVerbSuffix10, NominalVerbSuffix3, NominalVerbSuffix1, NominalVerbSuffix12, NominalVerbSuffix13, NominalVerbSuffix6, NominalVerbSuffix7, NominalVerbSuffix8} //nolint:lll
+	NounSuffixValues         = []Suffix{NounSuffix16, NounSuffix7, NounSuffix3, NounSuffix5, NounSuffix1, NounSuffix14, NounSuffix15, NounSuffix17, NounSuffix10, NounSuffix19, NounSuffix4, NounSuffix9, NounSuffix12, NounSuffix13, NounSuffix18, NounSuffix2, NounSuffix6, NounSuffix8, NounSuffix11}                                                  //nolint:lll
 )
 
 func NewSuffix(name, pattern, optionalLetter string, checkHarmony bool) Suffix {

@@ -41,12 +41,13 @@ func (s Stemmer) Stem(word string, tryCount ...int) string {
 		return word
 	}
 
-	var wordsToStem, stems Stems
+	var stems Stems
 
 	// Process the word with the nominal verb suffix State machine.
 	s.genericSuffixStripper(GetInitialNominalVerbState(), word, &stems)
+	var wordsToStem = stems
 
-	wordsToStem = append(stems, word)
+	wordsToStem = append(wordsToStem, word)
 
 	// Process each possible stem with the noun suffix State machine.
 	for _, w := range wordsToStem {
@@ -62,16 +63,17 @@ func (s Stemmer) Stem(word string, tryCount ...int) string {
 		lastLetterIndex := len(wordChars) - 1
 		lastLetter := string(wordChars[lastLetterIndex])
 		var wordChanged bool
-		if lastLetter == "u" {
+		switch {
+		case lastLetter == "u":
 			word = ReplaceStringAtIndex(word, 'ü', lastLetterIndex)
 			wordChanged = true
-		} else if lastLetter == "ü" {
+		case lastLetter == "ü":
 			word = ReplaceStringAtIndex(word, 'u', lastLetterIndex)
 			wordChanged = true
-		} else if lastLetter == "ı" {
+		case lastLetter == "ı":
 			word = ReplaceStringAtIndex(word, 'i', lastLetterIndex)
 			wordChanged = true
-		} else if lastLetter == "i" {
+		case lastLetter == "i":
 			word = ReplaceStringAtIndex(word, 'ı', lastLetterIndex)
 			wordChanged = true
 		}
