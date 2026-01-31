@@ -10,27 +10,28 @@ jobs:
     strategy:
       matrix:
         go:
-          - "1.19"
-          - "1.18"
+          - "1.23"
+          - "1.22"
 
     steps:
       - name: Set up Go ${{ matrix.go }}
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         with:
           go-version: ${{ matrix.go }}
 
       - run: go version
 
       - name: Check out code into the Go module directory
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: go test
         run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           file: ./coverage.txt
           env_vars: GO
+          token: ${{ secrets.CODECOV_TOKEN }}
         env:
           GO: ${{ matrix.go }}
