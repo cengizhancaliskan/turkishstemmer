@@ -1,68 +1,108 @@
+version: "2"
+run:
+  tests: true
+
 linters:
-  disable-all: true
+  default: none
   enable:
     - bodyclose
-    - depguard
     - dogsled
     - dupl
     - errcheck
-    - exportloopref
     - funlen
-    - gochecknoinits
     - goconst
     - gocritic
     - gocyclo
-    - gofmt
-    - goimports
-    - gomnd
     - goprintffuncname
     - gosec
-    - gosimple
     - govet
     - ineffassign
     - lll
     - misspell
+    - mnd
     - nakedret
     - noctx
     - nolintlint
+    - revive
+    - rowserrcheck
+    - sqlclosecheck
     - staticcheck
-    - stylecheck
-    - typecheck
     - unconvert
     - unparam
     - unused
+    - wastedassign
     - whitespace
-
-  # don't enable:
-  # - asciicheck
-  # - scopelint
-  # - gochecknoglobals
-  # - gocognit
-  # - godot
-  # - godox
-  # - goerr113
-  # - interfacer
-  # - maligned
-  # - nestif
-  # - prealloc
-  # - testpackage
-  # - revive
-  # - wsl
-issues:
-  # Excluding configuration per-path, per-linter, per-text and per-source
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - gomnd
-
-linters-settings:
-  nolintlint:
-    allow-unused: false
-    allow-leading-space: false
-    require-specific: true
-  govet:
-    enable-all: true
-    disable:
-      - fieldalignment
-      - lostcancel
-      - shadow
+  settings:
+    govet:
+      disable:
+        - fieldalignment
+        - shadow
+      enable-all: true
+    lll:
+      line-length: 120
+      tab-width: 4
+    mnd:
+      checks:
+        - argument
+        - case
+        - condition
+        - return
+      ignored-numbers:
+        - "0"
+        - "1"
+        - "100"
+      ignored-functions:
+        - strings.SplitN
+    nolintlint:
+      require-specific: true
+      allow-unused: false
+    revive:
+      rules:
+        - name: exported
+          severity: warning
+        - name: package-comments
+          severity: warning
+        - name: error-naming
+          severity: warning
+        - name: error-strings
+          severity: warning
+        - name: error-return
+          severity: warning
+        - name: var-naming
+          severity: warning
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - dupl
+          - errcheck
+          - funlen
+          - gocyclo
+          - gosec
+          - mnd
+        path: _test\.go
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    gofmt:
+      simplify: true
+    goimports:
+      local-prefixes:
+        - github.com/cengizhancaliskan/turkishstemmer
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
