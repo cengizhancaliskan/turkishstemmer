@@ -2,7 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/cengizhancaliskan/turkishstemmer.svg)](https://pkg.go.dev/github.com/cengizhancaliskan/turkishstemmer)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/cengizhancaliskan/turkishstemmer)](https://img.shields.io/github/go-mod/go-version/cengizhancaliskan/turkishstemmer)
-[![tests](https://github.com/cengizhancaliskan/turkishstemmer/actions/workflows/tests.yaml/badge.svg)](https://github.com/cengizhancaliskan/turkishstemmer/actions/workflows/tests.yaml)
+[![CI](https://github.com/cengizhancaliskan/turkishstemmer/actions/workflows/ci.yaml/badge.svg)](https://github.com/cengizhancaliskan/turkishstemmer/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/cengizhancaliskan/turkishstemmer/branch/master/graph/badge.svg?token=)](https://codecov.io/gh/cengizhancaliskan/turkishstemmer)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cengizhancaliskan/turkishstemmer)](https://goreportcard.com/report/github.com/cengizhancaliskan/turkishstemmer)
 [![License](https://img.shields.io/github/license/cengizhancaliskan/turkishstemmer)](LICENSE)
