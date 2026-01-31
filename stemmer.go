@@ -63,17 +63,17 @@ func (s Stemmer) Stem(word string, tryCount ...int) string {
 		lastLetterIndex := len(wordChars) - 1
 		lastLetter := string(wordChars[lastLetterIndex])
 		var wordChanged bool
-		switch {
-		case lastLetter == "u":
+		switch lastLetter {
+		case "u":
 			word = ReplaceStringAtIndex(word, 'ü', lastLetterIndex)
 			wordChanged = true
-		case lastLetter == "ü":
+		case "ü":
 			word = ReplaceStringAtIndex(word, 'u', lastLetterIndex)
 			wordChanged = true
-		case lastLetter == "ı":
+		case "ı":
 			word = ReplaceStringAtIndex(word, 'i', lastLetterIndex)
 			wordChanged = true
-		case lastLetter == "i":
+		case "i":
 			word = ReplaceStringAtIndex(word, 'ı', lastLetterIndex)
 			wordChanged = true
 		}

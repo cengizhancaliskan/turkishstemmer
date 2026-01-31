@@ -39,7 +39,8 @@ var (
 	DefaultVowelHarmonyExceptionsFile []byte
 
 	//go:embed data/last_consonant_exceptions.txt
-	// DefaultLastConsonantExceptionsFile The path of the file that contains the default set of last consonant exceptions.
+	// DefaultLastConsonantExceptionsFile The path of the file that contains
+	// the default set of last consonant exceptions.
 	DefaultLastConsonantExceptionsFile []byte
 
 	//go:embed data/average_stem_size_exceptions.txt

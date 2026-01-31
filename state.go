@@ -17,7 +17,12 @@ type BaseState struct {
 func (s BaseState) AddTransitions(word string, transitions *Transitions, startState State) {
 	for _, suffix := range s.Suffixes() {
 		if suffix.Match(word) {
-			*transitions = append(*transitions, NewTransition(startState, startState.NextState(suffix.String()), word, suffix))
+			*transitions = append(*transitions, NewTransition(
+				startState,
+				startState.NextState(suffix.String()),
+				word,
+				suffix,
+			))
 		}
 	}
 }

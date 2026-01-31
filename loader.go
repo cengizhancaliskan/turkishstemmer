@@ -3,7 +3,6 @@ package turkishstemmer
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -25,12 +24,12 @@ func LoadWords(path string) []string {
 	defer func(file *os.File) {
 		err := file.Close()
 		if err != nil {
-			log.Panicf(fmt.Sprintf("failed to close file %s.", path))
+			log.Panicf("failed to close file %s.", path)
 		}
 	}(file)
 
 	if err != nil {
-		log.Panicf(fmt.Sprintf("failed to open file %s.", path))
+		log.Panicf("failed to open file %s.", path)
 	}
 
 	var words []string
