@@ -1,10 +1,11 @@
 # Turkish Stemmer for Golang
 
-[![go-github release (latest SemVer)](https://img.shields.io/github/v/release/cengizhancaliskan/turkishstemmer?sort=semver)](https://github.com/cengizhancaliskan/turkishstemmer/releases)
-[![GoDoc](https://img.shields.io/static/v1?label=godoc&message=reference&color=blue)](https://pkg.go.dev/github.com/cengizhancaliskan/turkishstemmer)
-[![Test Status](https://github.com/cengizhancaliskan/turkishstemmer/workflows/tests/badge.svg)](https://github.com/cengizhancaliskan/turkishstemmer?query=workflow%3Atests)
-[![Test Coverage](https://codecov.io/gh/cengizhancaliskan/turkishstemmer/branch/master/graph/badge.svg)](https://codecov.io/gh/cengizhancaliskan/turkishstemmer)
+[![Go Reference](https://pkg.go.dev/badge/github.com/cengizhancaliskan/turkishstemmer.svg)](https://pkg.go.dev/github.com/cengizhancaliskan/turkishstemmer)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/cengizhancaliskan/turkishstemmer)](https://img.shields.io/github/go-mod/go-version/cengizhancaliskan/turkishstemmer)
+[![tests](https://github.com/cengizhancaliskan/turkishstemmer/actions/workflows/tests.yml/badge.svg)](https://github.com/cengizhancaliskan/turkishstemmer/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/cengizhancaliskan/turkishstemmer/branch/master/graph/badge.svg?token=)](https://codecov.io/gh/cengizhancaliskan/turkishstemmer)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cengizhancaliskan/turkishstemmer)](https://goreportcard.com/report/github.com/cengizhancaliskan/turkishstemmer)
+[![License](https://img.shields.io/github/license/cengizhancaliskan/turkishstemmer)](LICENSE)
 
 Stemmer algorithm for Turkish language.
 
