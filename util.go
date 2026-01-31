@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-// Contains Returns whether e is within s.
-func Contains[T comparable](s []T, e T) bool {
+// contains Returns whether e is within s.
+func contains[T comparable](s []T, e T) bool {
 	for _, v := range s {
 		if v == e {
 			return true

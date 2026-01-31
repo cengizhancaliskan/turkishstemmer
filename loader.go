@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// LoadWordsFromSliceBytes Reads data from slide of bytes and split as newline ('\n')
-func LoadWordsFromSliceBytes(data []byte) []string {
+// loadWordsFromSliceBytes Reads data from slide of bytes and split as newline ('\n')
+func loadWordsFromSliceBytes(data []byte) []string {
 	var words []string
 	for _, val := range bytes.Split(data, []byte{'\n'}) {
 		words = append(words, string(val))
@@ -18,8 +18,8 @@ func LoadWordsFromSliceBytes(data []byte) []string {
 	return words
 }
 
-// LoadWords Reads file line by line and returns string Slice
-func LoadWords(path string) []string {
+// loadWords Reads file line by line and returns string Slice
+func loadWords(path string) []string {
 	file, err := os.Open(path)
 	defer func(file *os.File) {
 		err := file.Close()

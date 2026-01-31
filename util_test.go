@@ -8,8 +8,8 @@ import (
 
 func TestContains(t *testing.T) {
 	words := []string{"lungo", "espresso", "long black"}
-	assert.True(t, Contains(words, "lungo"))
-	assert.False(t, Contains(words, "ristretto"))
+	assert.True(t, contains(words, "lungo"))
+	assert.False(t, contains(words, "ristretto"))
 }
 
 func TestReplaceStringAtIndex(t *testing.T) {

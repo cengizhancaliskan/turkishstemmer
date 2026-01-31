@@ -18,10 +18,10 @@ type Stemmer struct {
 
 // New constructs a new Stemmer.
 func New() Stemmer {
-	protectedWords := LoadWordsFromSliceBytes(DefaultProtectedWordsFile)
-	vowelHarmonyExceptions := LoadWordsFromSliceBytes(DefaultVowelHarmonyExceptionsFile)
-	lastConsonantExceptions := LoadWordsFromSliceBytes(DefaultLastConsonantExceptionsFile)
-	averageStemSizeExceptions := LoadWordsFromSliceBytes(DefaultAverageStemSizeExceptionsFile)
+	protectedWords := loadWordsFromSliceBytes(DefaultProtectedWordsFile)
+	vowelHarmonyExceptions := loadWordsFromSliceBytes(DefaultVowelHarmonyExceptionsFile)
+	lastConsonantExceptions := loadWordsFromSliceBytes(DefaultLastConsonantExceptionsFile)
+	averageStemSizeExceptions := loadWordsFromSliceBytes(DefaultAverageStemSizeExceptionsFile)
 
 	s := Stemmer{
 		ProtectedWords:            protectedWords,
@@ -58,7 +58,7 @@ func (s Stemmer) Stem(word string, tryCount ...int) string {
 	wordsToStem = append(wordsToStem, word)
 
 	// If none of the stemming rules matches, then replace with vice versa and try stemming again
-	if Contains(wordsToStem, word) && len(wordsToStem) < 2 && len(tryCount) < 1 {
+	if contains(wordsToStem, word) && len(wordsToStem) < 2 && len(tryCount) < 1 {
 		wordChars := []rune(word)
 		lastLetterIndex := len(wordChars) - 1
 		lastLetter := string(wordChars[lastLetterIndex])
@@ -148,13 +148,12 @@ func (s Stemmer) stemWord(word string, suffix Suffix) string {
 
 // shouldBeMarked Returns whether the word should be stem or not.
 func (s Stemmer) shouldBeMarked(word string, suffix Suffix) bool {
-	return !Contains(s.ProtectedWords, word) &&
+	return !contains(s.ProtectedWords, word) &&
 		(suffix.CheckHarmony && HasVowelHarmony(word) ||
-			Contains(s.VowelHarmonyExceptions, word) ||
+			contains(s.VowelHarmonyExceptions, word) ||
 			!suffix.CheckHarmony)
 }
 
-// TODO: Refactor
 func (s Stemmer) postProcess(stems []string, word string) string {
 	var finalStems Stems
 	for _, w := range stems {
@@ -163,23 +162,7 @@ func (s Stemmer) postProcess(stems []string, word string) string {
 		}
 	}
 
-	// Custom Sort
-	sort.Slice(finalStems, func(i, j int) bool {
-		if Contains(s.AverageStemSizeExceptions, finalStems[i]) {
-			return true
-		}
-		if Contains(s.AverageStemSizeExceptions, finalStems[j]) {
-			return false
-		}
-		s1Len, s2Len := len([]rune(finalStems[i])), len([]rune(finalStems[j]))
-
-		averageDistance := math.Abs(float64(s1Len-AverageStemmerCount)) - math.Abs(float64(s2Len-AverageStemmerCount))
-		if averageDistance == 0 {
-			return (s1Len - s2Len) < 0
-		} else {
-			return averageDistance < 0
-		}
-	})
+	s.sortStems(finalStems)
 
 	if len(finalStems) > 0 {
 		return finalStems[0]
@@ -187,12 +170,30 @@ func (s Stemmer) postProcess(stems []string, word string) string {
 	return word
 }
 
+func (s Stemmer) sortStems(stems Stems) {
+	sort.Slice(stems, func(i, j int) bool {
+		if contains(s.AverageStemSizeExceptions, stems[i]) {
+			return true
+		}
+		if contains(s.AverageStemSizeExceptions, stems[j]) {
+			return false
+		}
+		s1Len, s2Len := len([]rune(stems[i])), len([]rune(stems[j]))
+
+		averageDistance := math.Abs(float64(s1Len-AverageStemmerCount)) - math.Abs(float64(s2Len-AverageStemmerCount))
+		if averageDistance == 0 {
+			return (s1Len - s2Len) < 0
+		}
+		return averageDistance < 0
+	})
+}
+
 // validateWord Checks whether a word is acceptable for stemming or not.
 func (s Stemmer) validateWord(word string) bool {
 	word = strings.TrimSpace(word)
 
 	if len(word) < 1 ||
-		Contains(s.ProtectedWords, word) ||
+		contains(s.ProtectedWords, word) ||
 		!IsTurkishWord(word) ||
 		CountSyllables(word) < MinSyllableCount {
 		return false
@@ -204,7 +205,7 @@ func (s Stemmer) validateWord(word string) bool {
 // lastConsonant Checks the last consonant rule of a word
 // returns a new word affected by the last consonant rule
 func (s Stemmer) lastConsonant(word string) string {
-	if Contains(s.LastConsonantExceptions, word) {
+	if contains(s.LastConsonantExceptions, word) {
 		return word
 	}
 	w := []rune(word)
