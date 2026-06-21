@@ -1,0 +1,42 @@
+package turkishstemmer
+
+import "testing"
+
+var (
+	benchmarkWords = []string{
+		"eriklimişsincesine",
+		"satıyorsunuz",
+		"taksicisiniz",
+		"telefonları",
+		"arasındaki",
+		"gozluklerinde",
+		"monitörü",
+		"çantasıı",
+		"ağrılı",
+		"kalelerimizdekilerden",
+		"çocuğuymuşumcasına",
+	}
+	benchmarkStemResult    string
+	benchmarkStemmerResult Stemmer
+)
+
+func BenchmarkStem(b *testing.B) {
+	b.ReportAllocs()
+	stemmer := New()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		for _, word := range benchmarkWords {
+			benchmarkStemResult = stemmer.Stem(word)
+		}
+	}
+}
+
+func BenchmarkNew(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		benchmarkStemmerResult = New()
+	}
+}
