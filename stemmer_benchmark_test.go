@@ -13,6 +13,7 @@ var (
 		"arasındaki",
 		"gozluklerinde",
 		"monitörü",
+		// Exercise the typo-correction fallback on a representative misspelling.
 		"çantasıı",
 		"ağrılı",
 		"kalelerimizdekilerden",
