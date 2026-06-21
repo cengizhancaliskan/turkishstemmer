@@ -24,11 +24,15 @@ func ReplaceStringAtIndex(text string, r rune, i int) string {
 
 // GetVowels returns the vowels of a word.
 func GetVowels(word string) []rune {
-	var vowels []rune
+	vowels := make([]rune, 0, len(word))
 	for _, char := range word {
 		if strings.Contains(Vowels, string(char)) {
 			vowels = append(vowels, char)
 		}
+	}
+
+	if len(vowels) == 0 {
+		return nil
 	}
 
 	return vowels
@@ -41,13 +45,14 @@ func CountSyllables(word string) int {
 
 // ValidateOptionalLetter Checks whether an optional letter is valid or not.
 func ValidateOptionalLetter(word string, candidate *rune) bool {
-	wordLength := len([]rune(word))
+	wordRunes := []rune(word)
+	wordLength := len(wordRunes)
 
 	if wordLength-2 < 0 {
 		return false
 	}
 
-	previousChar := string([]rune(word)[wordLength-2])
+	previousChar := string(wordRunes[wordLength-2])
 
 	if strings.Contains(Vowels, string(*candidate)) {
 		return strings.Contains(Consonants, previousChar)

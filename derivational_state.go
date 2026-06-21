@@ -5,13 +5,14 @@ type DerivationalState struct {
 }
 
 var (
-	DerivationalStateA = NewDerivationalState(true, false, DerivationalSuffixValues)
-	DerivationalStateB = NewDerivationalState(false, true, nil)
+	DerivationalStateA = NewDerivationalState("DerivationalStateA", true, false, DerivationalSuffixValues)
+	DerivationalStateB = NewDerivationalState("DerivationalStateB", false, true, nil)
 )
 
-func NewDerivationalState(initialState, finalState bool, suffixes []Suffix) DerivationalState {
+func NewDerivationalState(id string, initialState, finalState bool, suffixes []Suffix) DerivationalState {
 	return DerivationalState{
 		BaseState{
+			id:           id,
 			initialState: initialState,
 			finalState:   finalState,
 			suffixes:     suffixes,

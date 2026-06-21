@@ -75,7 +75,7 @@ func NewSuffix(name, pattern, optionalLetter string, checkHarmony bool) Suffix {
 }
 
 func (s Suffix) Match(word string) bool {
-	return s.Pattern.Match([]byte(word))
+	return s.Pattern.MatchString(word)
 }
 
 func (s Suffix) GetOptionalLetter(word string) *rune {
