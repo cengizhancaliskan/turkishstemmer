@@ -6,7 +6,12 @@ type NounState struct {
 
 var (
 	NounStateA = NewNounState("NounStateA", true, true, NounSuffixValues)
-	NounStateB = NewNounState("NounStateB", false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5})
+	NounStateB = NewNounState(
+		"NounStateB",
+		false,
+		true,
+		[]Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5},
+	)
 	NounStateC = NewNounState("NounStateC", false, false, []Suffix{NounSuffix6, NounSuffix7})
 	NounStateD = NewNounState("NounStateD", false, false, []Suffix{NounSuffix10, NounSuffix13, NounSuffix14})
 	NounStateE = NewNounState("NounStateE", false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix7, NounSuffix18}) //nolint:lll

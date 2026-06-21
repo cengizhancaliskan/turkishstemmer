@@ -8,7 +8,12 @@ var (
 	NominalVerbStateA = NewNominalVerbState("NominalVerbStateA", true, false, NominalVerbSuffixValues)
 	NominalVerbStateB = NewNominalVerbState("NominalVerbStateB", false, true, []Suffix{NominalVerbSuffix14})
 	NominalVerbStateC = NewNominalVerbState("NominalVerbStateC", false, true, []Suffix{NominalVerbSuffix10, NominalVerbSuffix12, NominalVerbSuffix13, NominalVerbSuffix14}) //nolint:lll
-	NominalVerbStateD = NewNominalVerbState("NominalVerbStateD", false, false, []Suffix{NominalVerbSuffix12, NominalVerbSuffix13})
+	NominalVerbStateD = NewNominalVerbState(
+		"NominalVerbStateD",
+		false,
+		false,
+		[]Suffix{NominalVerbSuffix12, NominalVerbSuffix13},
+	)
 	NominalVerbStateE = NewNominalVerbState("NominalVerbStateE", false, true, []Suffix{NominalVerbSuffix1, NominalVerbSuffix2, NominalVerbSuffix3, NominalVerbSuffix4, NominalVerbSuffix5, NominalVerbSuffix14}) //nolint:lll
 	NominalVerbStateF = NewNominalVerbState("NominalVerbStateF", false, true, nil)
 	NominalVerbStateG = NewNominalVerbState("NominalVerbStateG", false, false, []Suffix{NominalVerbSuffix14})

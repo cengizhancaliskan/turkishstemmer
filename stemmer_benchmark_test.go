@@ -2,9 +2,11 @@ package turkishstemmer
 
 import "testing"
 
+const benchmarkWordEriklimissincesine = "eriklimişsincesine"
+
 var (
 	benchmarkWords = []string{
-		"eriklimişsincesine",
+		benchmarkWordEriklimissincesine,
 		"satıyorsunuz",
 		"taksicisiniz",
 		"telefonları",
