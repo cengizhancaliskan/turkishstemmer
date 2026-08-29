@@ -5,17 +5,22 @@ type NounState struct {
 }
 
 var (
-	NounStateA = NewNounState(true, true, NounSuffixValues)
-	NounStateB = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5})
-	NounStateC = NewNounState(false, false, []Suffix{NounSuffix6, NounSuffix7})
-	NounStateD = NewNounState(false, false, []Suffix{NounSuffix10, NounSuffix13, NounSuffix14})
-	NounStateE = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix7, NounSuffix18}) //nolint:lll
-	NounStateF = NewNounState(false, false, []Suffix{NounSuffix6, NounSuffix7, NounSuffix18})
-	NounStateG = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix18}) //nolint:lll
-	NounStateH = NewNounState(false, true, []Suffix{NounSuffix1})
-	NounStateK = NewNounState(false, true, nil)
-	NounStateL = NewNounState(false, true, []Suffix{NounSuffix18})
-	NounStateM = NewNounState(false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix6, NounSuffix7}) //nolint:lll
+	NounStateA = NewNounState("NounStateA", true, true, NounSuffixValues)
+	NounStateB = NewNounState(
+		"NounStateB",
+		false,
+		true,
+		[]Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5},
+	)
+	NounStateC = NewNounState("NounStateC", false, false, []Suffix{NounSuffix6, NounSuffix7})
+	NounStateD = NewNounState("NounStateD", false, false, []Suffix{NounSuffix10, NounSuffix13, NounSuffix14})
+	NounStateE = NewNounState("NounStateE", false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix7, NounSuffix18}) //nolint:lll
+	NounStateF = NewNounState("NounStateF", false, false, []Suffix{NounSuffix6, NounSuffix7, NounSuffix18})
+	NounStateG = NewNounState("NounStateG", false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix18}) //nolint:lll
+	NounStateH = NewNounState("NounStateH", false, true, []Suffix{NounSuffix1})
+	NounStateK = NewNounState("NounStateK", false, true, nil)
+	NounStateL = NewNounState("NounStateL", false, true, []Suffix{NounSuffix18})
+	NounStateM = NewNounState("NounStateM", false, true, []Suffix{NounSuffix1, NounSuffix2, NounSuffix3, NounSuffix4, NounSuffix5, NounSuffix6, NounSuffix6, NounSuffix7}) //nolint:lll
 
 	// TTValues InitialState = true, FinalState = true
 	TTValues = map[string]NounState{
@@ -62,9 +67,10 @@ var (
 	}
 )
 
-func NewNounState(initialState, finalState bool, suffixes []Suffix) NounState {
+func NewNounState(id string, initialState, finalState bool, suffixes []Suffix) NounState {
 	return NounState{
 		BaseState{
+			id:           id,
 			initialState: initialState,
 			finalState:   finalState,
 			suffixes:     suffixes,

@@ -2,7 +2,6 @@ package turkishstemmer
 
 import (
 	"math"
-	"reflect"
 	"sort"
 	"strings"
 )
@@ -10,10 +9,14 @@ import (
 type Stems []string
 
 type Stemmer struct {
-	ProtectedWords            []string
-	VowelHarmonyExceptions    []string
-	LastConsonantExceptions   []string
-	AverageStemSizeExceptions []string
+	ProtectedWords               []string
+	VowelHarmonyExceptions       []string
+	LastConsonantExceptions      []string
+	AverageStemSizeExceptions    []string
+	protectedWordsSet            map[string]struct{}
+	vowelHarmonyExceptionsSet    map[string]struct{}
+	lastConsonantExceptionsSet   map[string]struct{}
+	averageStemSizeExceptionsSet map[string]struct{}
 }
 
 // New constructs a new Stemmer.
@@ -24,10 +27,14 @@ func New() Stemmer {
 	averageStemSizeExceptions := loadWordsFromSliceBytes(DefaultAverageStemSizeExceptionsFile)
 
 	s := Stemmer{
-		ProtectedWords:            protectedWords,
-		VowelHarmonyExceptions:    vowelHarmonyExceptions,
-		LastConsonantExceptions:   lastConsonantExceptions,
-		AverageStemSizeExceptions: averageStemSizeExceptions,
+		ProtectedWords:               protectedWords,
+		VowelHarmonyExceptions:       vowelHarmonyExceptions,
+		LastConsonantExceptions:      lastConsonantExceptions,
+		AverageStemSizeExceptions:    averageStemSizeExceptions,
+		protectedWordsSet:            buildStringSet(protectedWords),
+		vowelHarmonyExceptionsSet:    buildStringSet(vowelHarmonyExceptions),
+		lastConsonantExceptionsSet:   buildStringSet(lastConsonantExceptions),
+		averageStemSizeExceptionsSet: buildStringSet(averageStemSizeExceptions),
 	}
 
 	return s
@@ -105,8 +112,8 @@ func (s Stemmer) genericSuffixStripper(state State, word string, stems *Stems) {
 			if transition.NextState.FinalState() {
 				for i := 0; i < len(transitions); i++ {
 					if transitions[i].Marked ||
-						(reflect.DeepEqual(transitions[i].StartState, transition.StartState) &&
-							reflect.DeepEqual(transitions[i].NextState, transition.NextState)) {
+						(statesEqual(transitions[i].StartState, transition.StartState) &&
+							statesEqual(transitions[i].NextState, transition.NextState)) {
 						copy(transitions[i:], transitions[i+1:])
 						transitions[len(transitions)-1] = nil
 						transitions = transitions[:len(transitions)-1]
@@ -148,9 +155,9 @@ func (s Stemmer) stemWord(word string, suffix Suffix) string {
 
 // shouldBeMarked Returns whether the word should be stem or not.
 func (s Stemmer) shouldBeMarked(word string, suffix Suffix) bool {
-	return !contains(s.ProtectedWords, word) &&
+	return !s.hasProtectedWord(word) &&
 		(suffix.CheckHarmony && HasVowelHarmony(word) ||
-			contains(s.VowelHarmonyExceptions, word) ||
+			s.hasVowelHarmonyException(word) ||
 			!suffix.CheckHarmony)
 }
 
@@ -172,10 +179,10 @@ func (s Stemmer) postProcess(stems []string, word string) string {
 
 func (s Stemmer) sortStems(stems Stems) {
 	sort.Slice(stems, func(i, j int) bool {
-		if contains(s.AverageStemSizeExceptions, stems[i]) {
+		if s.hasAverageStemSizeException(stems[i]) {
 			return true
 		}
-		if contains(s.AverageStemSizeExceptions, stems[j]) {
+		if s.hasAverageStemSizeException(stems[j]) {
 			return false
 		}
 		s1Len, s2Len := len([]rune(stems[i])), len([]rune(stems[j]))
@@ -193,7 +200,7 @@ func (s Stemmer) validateWord(word string) bool {
 	word = strings.TrimSpace(word)
 
 	if len(word) < 1 ||
-		contains(s.ProtectedWords, word) ||
+		s.hasProtectedWord(word) ||
 		!IsTurkishWord(word) ||
 		CountSyllables(word) < MinSyllableCount {
 		return false
@@ -205,15 +212,48 @@ func (s Stemmer) validateWord(word string) bool {
 // lastConsonant Checks the last consonant rule of a word
 // returns a new word affected by the last consonant rule
 func (s Stemmer) lastConsonant(word string) string {
-	if contains(s.LastConsonantExceptions, word) {
+	if s.hasLastConsonantException(word) {
 		return word
 	}
 	w := []rune(word)
-	wordLen := len([]rune(word))
+	wordLen := len(w)
 	lastChar := w[wordLen-1]
 	if replaceChar, ok := LastConsonantRules[string(lastChar)]; ok {
 		return string(w[:wordLen-1]) + replaceChar
 	}
 
 	return word
+}
+
+func buildStringSet(values []string) map[string]struct{} {
+	set := make(map[string]struct{}, len(values))
+	for _, value := range values {
+		set[value] = struct{}{}
+	}
+
+	return set
+}
+
+func (s Stemmer) hasProtectedWord(word string) bool {
+	_, ok := s.protectedWordsSet[word]
+
+	return ok
+}
+
+func (s Stemmer) hasVowelHarmonyException(word string) bool {
+	_, ok := s.vowelHarmonyExceptionsSet[word]
+
+	return ok
+}
+
+func (s Stemmer) hasLastConsonantException(word string) bool {
+	_, ok := s.lastConsonantExceptionsSet[word]
+
+	return ok
+}
+
+func (s Stemmer) hasAverageStemSizeException(word string) bool {
+	_, ok := s.averageStemSizeExceptionsSet[word]
+
+	return ok
 }

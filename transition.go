@@ -2,7 +2,6 @@ package turkishstemmer
 
 import (
 	"fmt"
-	"reflect"
 )
 
 type Transitions []*Transition
@@ -28,8 +27,8 @@ func (t Transition) SimilarTransitions(transitions Transitions) *Transitions {
 	var similars Transitions
 
 	for _, transition := range transitions {
-		if reflect.DeepEqual(t.StartState, transition.StartState) &&
-			reflect.DeepEqual(t.NextState, transition.NextState) {
+		if statesEqual(t.StartState, transition.StartState) &&
+			statesEqual(t.NextState, transition.NextState) {
 			similars = append(similars, transition)
 		}
 	}
